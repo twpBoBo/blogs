@@ -45,19 +45,31 @@
       <!-- 音量 -->
       <!-- 播放倍数 -->
     </div>
-    <div class="MucPlay_Lyric" v-show="showLyric">
-      {{ Lyric }}
-    </div>
+    <ul class="MucPlay_Lyric" v-show="showLyric">
+      <li
+        class="item"
+        v-for="(item, index) in Lyricshow"
+        :key="index"
+      >
+        {{ item }}
+      </li>
+    </ul>
   </div>
 </template>
 <script setup>
 import useMusic from '@/stores/music';
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import { storeToRefs } from 'pinia';
 // 设置播放地址（通过pinia获取）
 const { url, songName, singerName, Lyric } = storeToRefs(useMusic());
-console.log(url);
-// playState.value = isShow;
+console.log(Lyric.value);
+// 歌词处理
+const Lyricshow = computed(() => {
+  return Lyric.value
+    .replace(/(\d{2}:|.\d{3}|\d{2}|\.)/g, '')
+    .split('[]');
+});
+
 // 获取音乐组件的实例
 const audio = ref(null);
 // 获取拖拽进度条的实例
@@ -196,11 +208,13 @@ function timeupdate() {
     text-align: center;
     width: 1200px;
     height: 700px;
-    background-color: aqua;
+    background-color: rgba(43, 169, 169, 0.8);
     margin: 0 auto;
     color: white;
     font-size: 25px;
     padding: 30px 30px 15px;
+    line-height: 200%;
+    overflow-y: auto;
   }
   &_console {
     background-color: rgb(48, 102, 102);
@@ -257,5 +271,31 @@ function timeupdate() {
       }
     }
   }
+}
+// 滚动条的长宽 */
+::-webkit-scrollbar {
+  width: 15px;
+  height: 15px;
+}
+/* // 滚动条的边框 */
+::-webkit-scrollbar-track,
+::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  border: 5px solid transparent;
+}
+
+/* // 滚动条内部阴影 */
+::-webkit-scrollbar-track {
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2) inset;
+}
+/* // 滚动条当前位置条的样式 */
+::-webkit-scrollbar-thumb {
+  min-height: 20px;
+  background-clip: content-box;
+  box-shadow: 0 0 0 5px rgba(0, 0, 0, 0.2) inset;
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
 }
 </style>

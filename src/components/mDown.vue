@@ -113,13 +113,12 @@ function handleAnchorClick(item) {
   .left {
     position: fixed;
     top: 0;
-    height: 100vh;
+    height: 95vh;
     width: 275px;
     overflow-x: hidden;
     overflow-y: scroll;
-    padding: 50px 10px 0;
+    padding: 50px 10px 30px;
     z-index: 9999;
-    padding-bottom: 50px;
     // box-sizing: border-box;
     .nav {
       width: 275px;

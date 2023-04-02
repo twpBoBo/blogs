@@ -12,6 +12,8 @@ import '@/assets/css/public.css';
 
 // 动画库
 import 'animate.css';
+// 模拟数据
+import '@/mock/index.js';
 // md
 // 预览组件以及样式
 import VMdPreview from '@kangc/v-md-editor/lib/preview';

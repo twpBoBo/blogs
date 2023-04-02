@@ -5,7 +5,7 @@
     <ul class="musicBox_musicList">
       <li
         class="item"
-        v-for="item in songLlist"
+        v-for="item in showLlist"
         :key="item.id"
         :style="{ backgroundImage: `url(${item.al.picUrl})` }"
       >
@@ -40,22 +40,28 @@ const msgStore = useMessage();
 // 加载
 msgStore.isShowLoding = true;
 // 渲染数据
+// 所有的数据
 let songLlist = ref([]);
+// 展示的数据
+let showLlist = ref([]);
 const musicStore = useMusic();
 // 分页数据
 const pages = ref(1);
-let totol = '';
+let totol = ref(0);
 let limit = 21;
 // 请求 初始化
 function getSong(page = { page: 1 }) {
   songAPI({ page })
     .then((res) => {
-      songLlist.value = res.data;
-      totol = res.totlo;
+      songLlist.value = res.playlist.tracks;
+      showLlist.value = res.playlist.tracks.splice(
+        (pages.value - 1) * limit,
+        limit
+      );
       msgStore.isShowLoding = false;
+      totol.value = songLlist.value.length;
     })
     .catch((err) => {
-      console.log(1);
       console.log(err);
       msgStore.isShowLoding = false;
       msgStore.setMsgstate({
@@ -69,26 +75,31 @@ getSong();
 
 // 分页
 const next = () => {
-  msgStore.isShowLoding = true;
+  console.log(totol.value);
   pages.value++;
-  if (pages.value > Math.ceil(totol / limit)) {
-    pages.value = Math.ceil(totol / limit);
-    msgStore.isShowLoding = false;
+  if (pages.value >= Math.ceil(totol.value / limit)) {
+    pages.value = Math.ceil(totol.value / limit) - 1;
     return;
   } else {
-    getSong({ page: pages.value });
+    showLlist.value = songLlist.value.splice(
+      (pages.value - 1) * limit,
+      limit
+    );
   }
+  console.log(pages.value);
 };
 const pre = () => {
-  msgStore.isShowLoding = true;
   pages.value--;
   if (pages.value < 1) {
-    msgStore.isShowLoding = false;
     pages.value = 1;
     return;
   } else {
-    getSong({ page: pages.value });
+    showLlist.value = songLlist.value.splice(
+      (pages.value - 1) * limit,
+      limit
+    );
   }
+  console.log(pages.value);
 };
 // 播放音乐
 const play = (item) => {
@@ -101,7 +112,8 @@ const play = (item) => {
     musicStore.isShow = true;
   });
   songLyricAPI({ id: item.id }).then((res) => {
-    musicStore.Lyric = res.data.lrc.lyric;
+    console.log(res);
+    musicStore.Lyric = res.lrc.lyric;
   });
 };
 </script>

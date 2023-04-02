@@ -10,7 +10,10 @@
     <div class="button ml-5" @click="search">搜索</div>
   </div>
   <div class="seach_listWrap" v-show="showLlist">
-    <div class="back iconfont icon-xiangzuo" @click="showListBtn"></div>
+    <div
+      class="back iconfont icon-xiangzuo"
+      @click="showListBtn"
+    ></div>
     <ul class="seach_list">
       <li class="item" v-for="item in songLlist" :key="item.id">
         <p class="songname">
@@ -36,7 +39,7 @@ const showLlist = ref(false);
 const search = () => {
   console.log(keyword.value);
   searchAPI({ keywords: keyword.value }).then((res) => {
-    songLlist.value = res.data;
+    songLlist.value = res.result.songs;
     showLlist.value = true;
     console.log(res);
   });

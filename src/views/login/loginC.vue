@@ -48,7 +48,6 @@ defineProps({
 const Login = debounce(
   () => {
     // eslint-disable-next-line no-undef
-    console.log(1);
     if (account.value == '' || pawd.value == '') {
       msgStore.setMsgstate({
         msg: '账号或密码不能为空',
@@ -56,12 +55,12 @@ const Login = debounce(
         isShow: true
       });
     } else {
-      loginAPI({ zhanghao: account.value, paswd: pawd.value }).then(
+      loginAPI({ account: account.value, password: pawd.value }).then(
         (res) => {
           if (res.status === 0) {
+            console.log(res.status);
             console.log(res);
             localStorage.setItem('token', res.token);
-            localStorage.setItem('id', res.id);
             userStore.token = res.token;
             time.value = setTimeout(() => {
               router.push({ path: '/home' });

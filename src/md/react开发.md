@@ -79,10 +79,10 @@ State 与 props 类似，但是 state 是私有的，并且完全受控于当前
 
 # 动态 class
 
-```
- this.setState({
-      num: this.state.num + 1,
-    });
+```js
+this.setState({
+  num: this.state.num + 1
+});
 ```
 
 **函数式**
@@ -121,16 +121,16 @@ this.state[a] = 3;
 
 例如，此代码可能会无法更新计数器：
 
-```
+```js
 // Wrong
 this.setState({
-  counter: this.state.counter + this.props.increment,
+  counter: this.state.counter + this.props.increment
 });
 ```
 
 **要解决这个问题，可以让 `setState()` 接收一个函数而不是一个对象。这个函数用上一个 state 作为第一个参数，将此次更新被应用时的 props 做为第二个参数：**
 
-```
+```js
 // Correct
 this.setState((state, props) => ({
   counter: state.counter + props.increment
@@ -219,7 +219,7 @@ onClick={() => this.chang(22)}
 
 ### 使用 if 判断条件来进行条件渲染
 
-```
+```js
 function Greeting(props) {
   const isLoggedIn = props.isLoggedIn;
   if (isLoggedIn) {
@@ -741,13 +741,12 @@ export default class InputDome extends React.Component {
 
 **子**
 
-```
-
-import React from "react";
+```js
+import React from 'react';
 
 const scaleNames = {
-  c: "Celsius",
-  f: "Fahrenheit",
+  c: 'Celsius',
+  f: 'Fahrenheit'
 };
 export default class TemperatureInput extends React.Component {
   constructor(props) {
@@ -769,7 +768,6 @@ export default class TemperatureInput extends React.Component {
     );
   }
 }
-
 ```
 
 # 组合 vs 继承
@@ -1701,14 +1699,14 @@ export default Index;
 
 ## 使用 hook 跳转
 
-```
-import "./index.scss";
-import { useNavigate } from "react-router-dom";
+```jsx
+import './index.scss';
+import { useNavigate } from 'react-router-dom';
 function Home() {
-  const nav=useNavigate()
+  const nav = useNavigate();
 
-  function toURL(){
-    nav('/my')
+  function toURL() {
+    nav('/my');
   }
   return (
     <div className="home">
@@ -2563,9 +2561,9 @@ function Home({store}) {
 export default inject("store")(observer(Home));
 ```
 
-# 常用工具
+#
 
-## 配置 jsconfig.json
+# 配置 jsconfig.json
 
 代码
 
@@ -2585,7 +2583,7 @@ import axios from "../../../utils/request";   // 以前的写法
 import axios from "utils/request";
 ```
 
-## scss
+# scss
 
 npm i node-sass -D
 
@@ -2595,13 +2593,13 @@ index.js 中引入
 import './home.scss'; //不用加from
 ```
 
-## 封装请求
+# 封装请求
 
 npm i axios -D
 
 ```js
 import axios from 'axios';
-let isDev = process.env.NODE_ENV === 'development';
+let isDev = 当前环境;
 let baseURL;
 if (isDev) {
   baseURL = 'http://localhost:3006';
@@ -2644,7 +2642,7 @@ service.interceptors.response.use(
 export default service;
 ```
 
-### 管理 api
+# 管理 api
 
 ```js
 import request from './request';
@@ -2657,7 +2655,7 @@ export const test = (data) => {
 };
 ```
 
-### 调用发请求
+# 调用发请求
 
 ```js
 import { test } from 'service/api';
@@ -2692,15 +2690,13 @@ function Home() {
 export default Home;
 ```
 
-## 性能优化
-
-### 知识点
+# 性能优化
 
 1. shouldComponentUpdate
 2. PureComponent
 3. useMemo
 
-### (1) shouldComponentUpdate
+## (1) shouldComponentUpdate
 
 类(class)组件性能 9 优化可以使用 shouldCompoentUpdate 进行优化 这**也是一个生命周期**
 
@@ -2716,7 +2712,7 @@ shouldComponentUpdate(nextProps, nextState) {
 }
 ```
 
-### (2) PureComponent
+## (2) PureComponent
 
 类(class)组件, 可以让其继承 React.PureComponent 来实现优化
 
@@ -2735,7 +2731,7 @@ class Demo extends React.PureComponent {
 export default Demo;
 ```
 
-### (3) memo
+## (3) memo
 
 **函数组件**可以使用 React.memo 进行包装以实现优化
 
@@ -2751,6 +2747,6 @@ export default React.memo(Scene);
 
 https://www.jianshu.com/p/b3d07860b778
 
-## 组件库
+# 组件库
 
 http://ant-design-mobile.antgroup.com/zh/guide/quick-start

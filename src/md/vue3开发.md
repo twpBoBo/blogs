@@ -322,7 +322,7 @@ export default {
 **自动获取聚焦**
 
 ```js
-一个自定义指令由一个包含类似组件生命周期钩子的对象来定义。钩子函数会接收到指令所绑定元素作为其参数。下面是一个自定义指令的例子，当一个 input 元素被 Vue 插入到 DOM 中后，它会被自动聚焦：
+//一个自定义指令由一个包含类似组件生命周期钩子的对象来定义。钩子函数会接收到指令所绑定元素作为其参数。下面是一个自定义指令的例子，当一个 input 元素被 Vue 插入到 DOM 中后，它会被自动聚焦：
 const focus = {
   mounted: (el) => el.focus()
 }
@@ -360,28 +360,7 @@ createApp(App)
 解决在**eslintrc.js 文件**加入
 
 ```js
-module.exports = {
-  root: true,
-  env: {
-    node: true
-  },
-  extends: [
-    'plugin:vue/vue3-essential',
-    'eslint:recommended',
-    '@vue/typescript/recommended',
-    'plugin:prettier/recommended'
-  ],
-  parserOptions: {
-    ecmaVersion: 2020
-  },
-  rules: {
-    'no-console':
-      process.env.NODE_ENV === 'production' ? 'warn' : 'off',
-    'no-debugger':
-      process.env.NODE_ENV === 'production' ? 'warn' : 'off',
-    '@typescript-eslint/no-explicit-any': ['off'] //加入这一行
-  }
-};
+ '@typescript-eslint/no-explicit-any': ['off'] //加入这一行
 ```
 
 ## 类型“ComponentInternalInstance | null”上不存在属性“proxy”。ts(2339)
@@ -448,7 +427,7 @@ createApp(App)
 
 因为我们在 app 实例上注册的再**任何组件都能使用**
 
-```vue
+```ts
 <template>
   <my-plug v-font-size:large></my-plug>
   <div @click="cMe">点我</div>
@@ -456,7 +435,7 @@ createApp(App)
 </template>
 <script lang="ts" setup>
 import { inject } from 'vue';
-const clickMe: any = inject('clickMe');
+const clickMe = inject('clickMe');
 const cMe = () => {
   clickMe();
   console.log(clickMe);

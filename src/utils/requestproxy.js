@@ -1,6 +1,6 @@
 import axios from 'axios';
 // 域名
-// let host = ' http://127.0.0.1:8999';
+let host = 'https://autumnfish.cn/';
 // process.env是Nodejs提供的一个API，它返回一个包含用户环境信息的对象。
 // 通过NODE_ENV 判断当前环境是生产环境(production)还是开发环境(development) 自动切换不同域名
 // 开发环境和生产环境
@@ -12,7 +12,7 @@ import axios from 'axios';
 // 创建axios实例
 const instance = axios.create({
   // baseURL  公共接口路径
-  baseURL: '',
+  baseURL: host,
   // timeout 超时时间
   timeout: 5000
 });

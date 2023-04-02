@@ -25,10 +25,9 @@ router.beforeEach((to, from, next) => {
   }
 });
 router.afterEach((to) => {
-  // console.log(to.name);
   let routes = ['mDown', 'resumes'];
   let flge = routes.includes(to.name);
-  console.log(flge);
+  // console.log(flge);
   if (flge) {
     showHome.value = false;
   } else {
